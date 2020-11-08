@@ -31,7 +31,6 @@ jQuery(document).ready(function() {
   const gameLoop = setInterval(reDraw, 50);
 
   function reDraw() {
-    console.log('redrawing');
     createCanvas();
     createSnake(snake);
   }
