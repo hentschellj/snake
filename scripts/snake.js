@@ -62,13 +62,13 @@ jQuery(document).ready(function() {
   }
 
   $(document).on('keydown', function(e) {
-    if (e.which == '37') {
+    if (e.which == '37' && direction != 'right') {
       direction = 'left';
-    } else if (e.which == '38') {
+    } else if (e.which == '38' && direction != 'down') {
       direction = 'up';
-    } else if (e.which == '39') {
+    } else if (e.which == '39' && direction != 'left') {
       direction = 'right';
-    } else if (e.which == '40') {
+    } else if (e.which == '40' && direction != 'up') {
       direction = 'down';
     }
   })
