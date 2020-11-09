@@ -13,6 +13,7 @@ jQuery(document).ready(function() {
           { 'x': 4, 'y': 0 },
         ];
   let direction     = 'right',
+      score         = 0,
       foodX,
       foodY,
       gameLoop;
@@ -25,13 +26,21 @@ jQuery(document).ready(function() {
   }
 
   function stop() {
-    clearInterval(gameloop)
+    clearInterval(gameLoop)
   }
 
   function reDraw() {
     createCanvas();
     createSnake(snake);
     drawFood();
+    const collisionStatus = checkCollision(snake, foodX, foodY);
+    if (collisionStatus == 'food') {
+      score++;
+      createNewFood();
+      snake.unshift(updateDirection(snake, direction));
+    } else if (collisionStatus == 'wall') {
+      stop();
+    }
   }
 
   function createCanvas() {
@@ -81,6 +90,22 @@ jQuery(document).ready(function() {
 
   function drawFood() {
     create(foodX*cellSize, foodY*cellSize, cellSize, cellSize, "green", "black");
+  }
+
+  function checkCollision(snakeArrayInput, foodXInput, foodYInput,) {
+    let collision = 'nothing';
+    snakeArrayInput.every(function(element) {
+      if (element.x == foodXInput && element.y == foodYInput) {
+        collision = 'food';
+        return false;
+      } else if (element.x == -1 || element.y == -1 || element.x == width/cellSize || element.y == height/cellSize) {
+        collision = 'wall';
+        return false;
+      } else {
+        return true;
+      }
+    })
+    return collision;
   }
 
   $(document).on('keydown', function(e) {
