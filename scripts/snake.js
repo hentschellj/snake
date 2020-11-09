@@ -3,8 +3,8 @@ jQuery(document).ready(function() {
   const context     = snakeCanvas.getContext('2d');
   const width       = snakeCanvas.width;
   const height      = snakeCanvas.height;
-  let direction   = 'right';
-  const snakeSize   = 10;
+  let direction     = 'right';
+  const cellSize    = 10;
   
   const snake = [
     { 'x': 0, 'y': 0 },
@@ -14,11 +14,16 @@ jQuery(document).ready(function() {
     { 'x': 4, 'y': 0 },
   ];
 
+  let foodX;
+  let foodY;
+
+  createNewFood();
   const gameLoop = setInterval(reDraw, 50);
 
   function reDraw() {
     createCanvas();
     createSnake(snake);
+    drawFood();
   }
 
   function createCanvas() {
@@ -28,7 +33,7 @@ jQuery(document).ready(function() {
   function createSnake(snakeInput) {
     updateSnake(snakeInput);
     snakeInput.forEach(function(element) {
-      create(element.x*10, element.y*10, snakeSize, snakeSize, "orange", "black");
+      create(element.x*10, element.y*10, cellSize, cellSize, "orange", "black");
     });
   }
 
@@ -59,6 +64,15 @@ jQuery(document).ready(function() {
       cellY = cellY+1;
     }
     return { 'x': cellX, 'y': cellY };
+  }
+
+  function createNewFood() {
+    foodX = parseInt(Math.random()*width/cellSize);
+    foodY = parseInt(Math.random()*height/cellSize);
+  }
+
+  function drawFood() {
+    create(foodX*cellSize, foodY*cellSize, cellSize, cellSize, "green", "black");
   }
 
   $(document).on('keydown', function(e) {
