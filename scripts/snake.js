@@ -3,7 +3,7 @@ jQuery(document).ready(function() {
   const context     = snakeCanvas.getContext('2d');
   const width       = snakeCanvas.width;
   const height      = snakeCanvas.height;
-  const direction   = 'right';
+  let direction   = 'right';
   const snakeSize   = 10;
   
   const snake = [
@@ -42,7 +42,7 @@ jQuery(document).ready(function() {
 
   function updateSnake(snakeInput) {
     snakeInput.shift();
-    snakeInput.push(updateDirection(snakeInput, 'down'));
+    snakeInput.push(updateDirection(snakeInput, direction));
   }
 
   function updateDirection(snakeInput, direction) {
@@ -60,4 +60,16 @@ jQuery(document).ready(function() {
     }
     return { 'x': cellX, 'y': cellY };
   }
+
+  $(document).on('keydown', function(e) {
+    if (e.which == '37') {
+      direction = 'left';
+    } else if (e.which == '38') {
+      direction = 'up';
+    } else if (e.which == '39') {
+      direction = 'right';
+    } else if (e.which == '40') {
+      direction = 'down';
+    }
+  })
 });
