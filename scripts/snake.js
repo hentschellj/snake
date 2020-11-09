@@ -1,24 +1,32 @@
 jQuery(document).ready(function() {
-  const snakeCanvas = $('canvas.snake-game')[0];
-  const context     = snakeCanvas.getContext('2d');
-  const width       = snakeCanvas.width;
-  const height      = snakeCanvas.height;
-  let direction     = 'right';
-  const cellSize    = 10;
-  
-  const snake = [
-    { 'x': 0, 'y': 0 },
-    { 'x': 1, 'y': 0 },
-    { 'x': 2, 'y': 0 },
-    { 'x': 3, 'y': 0 },
-    { 'x': 4, 'y': 0 },
-  ];
+  const snakeCanvas = $('canvas.snake-game')[0],
+        context     = snakeCanvas.getContext('2d'),
+        width       = snakeCanvas.width,
+        height      = snakeCanvas.height,
+        cellSize    = 10,
+        gameSpeed   = 50,
+        snake       = [
+          { 'x': 0, 'y': 0 },
+          { 'x': 1, 'y': 0 },
+          { 'x': 2, 'y': 0 },
+          { 'x': 3, 'y': 0 },
+          { 'x': 4, 'y': 0 },
+        ];
+  let direction     = 'right',
+      foodX,
+      foodY,
+      gameLoop;
 
-  let foodX;
-  let foodY;
+  start();
 
-  createNewFood();
-  const gameLoop = setInterval(reDraw, 50);
+  function start() {
+    createNewFood();
+    gameLoop = setInterval(reDraw, gameSpeed);
+  }
+
+  function stop() {
+    clearInterval(gameloop)
+  }
 
   function reDraw() {
     createCanvas();
