@@ -33,6 +33,8 @@ jQuery(document).ready(function() {
     createCanvas();
     createSnake(snake);
     drawFood();
+    drawScore();
+
     const collisionStatus = checkCollision(snake, foodX, foodY);
     if (collisionStatus == 'food') {
       score++;
@@ -106,6 +108,11 @@ jQuery(document).ready(function() {
       }
     })
     return collision;
+  }
+
+  function drawScore() {
+    context.fillStyle = 'grey';
+    context.fillText('Score: ' + score, 5, height-5);
   }
 
   $(document).on('keydown', function(e) {
